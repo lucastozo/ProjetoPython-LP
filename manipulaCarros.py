@@ -10,7 +10,7 @@ def carregar() -> list :
     Retorna uma lista vazia caso o arquivo não exista ou 
     uma lista de dicionários contendo os dados dos clientes
     '''
-    lista = mcsv.carregarDados("Carro.csv")
+    lista = mcsv.carregarDados("Carros.csv")
     return lista
 
 
@@ -30,4 +30,4 @@ def cadastrar( listaCarros : list) -> bool :
     cliente = apresentacao.CadastrarCarro()
     listaCarros.append(cliente)
     print(listaCarros)
-    return mcsv.gravarDados('Carro.csv', camposCliente, listaCarros )
+    return mcsv.gravarDados('Carros.csv', camposCliente, listaCarros )
