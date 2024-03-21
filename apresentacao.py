@@ -1,5 +1,8 @@
 from os import system, name
 
+# saidaCampos é uma lista para mostrar os campos de uma forma mais amigável
+saidaCamposCarro = ["Identificação", "Modelo", "Cor", "Ano de Fabricação", "Placa", "Câmbio", "Categoria", "Km", "Diária", "Seguro", "Disponível"]
+
 #################################################################
 
 def EsperaEnter():
@@ -116,11 +119,33 @@ def CadastrarCarro() -> dict:
     -------
     Retorna um dicionário com as informações de um carro    
     '''
-    print("#"*30)
+    limpaTela()
     print("Cadastramento de um novo carro ")
     l = ["Identificacao","Modelo","Cor","AnoFabricacao","Placa","Cambio","Categoria", "Km", "Diaria", "Seguro", "Disponivel"]
+    
     carro = {}
     for campo in l:
-        carro[campo] = input(f"{campo}:")
-        print("#"*30)
-    return carro   
+        carro[campo] = input(f"{saidaCamposCarro[l.index(campo)]}: ")
+    return carro
+
+def ExibirCarro(carro : dict, mostrarIndices = False):
+    '''
+    Procedimento que exibe as informações de um carro
+
+    Parâmetros
+    ----------
+    carro: dicionário com as informações do carro
+    mostrarIndices: booleano que indica se deve exibir os índices dos campos, útil para a função alterar
+    '''
+    limpaTela()
+    print("#"*30)
+    print("Informações do carro")
+    for indice, item in enumerate(carro.items(), start=1):
+        chave, valor = item
+        if mostrarIndices:
+            print(f"{indice}. {saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
+        else:
+            print(f"{saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
+    print("#"*30)
+    if mostrarIndices:
+        print()

@@ -39,16 +39,30 @@ def main():
                     opcaoCarros = apresentacao.MenuCarros()
                     match opcaoCarros:
                         case 1:
-                            print("Chamar Cadastrar carro")
+                            if mcar.cadastrar(mcar.carregar()):
+                                print("Carro cadastrado com sucesso")
+                            else:
+                                print("Erro ao cadastrar carro")
                         case 2:
-                            print("Chamar Alterar carro")
+                            listaCarros = mcar.carregar()
+                            id = int(input("Digite o ID do carro que deseja alterar: "))
+                            if mcar.alterar(listaCarros, id):
+                                print("Carro alterado com sucesso")
+                            else:
+                                print("Carro não encontrado")
                         case 3:
-                            print("Chamar Excluir carro")
+                            listaCarros = mcar.carregar()
+                            id = int(input("Digite o ID do carro que deseja excluir: "))
+                            if mcar.excluir(listaCarros, id):
+                                print("Carro excluido com sucesso")
+                            else:
+                                print("Carro não encontrado")
                         case 4:
                             print("Chamar disponibilizar carros para venda")
                         case 5:
                             print("Chamar carros por categoria")
-                    apresentacao.EsperaEnter()
+                    if opcaoCarros != 9:
+                        apresentacao.EsperaEnter()
             case 9:
                 break
 
