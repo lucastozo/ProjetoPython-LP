@@ -15,6 +15,7 @@ def carregarDados( nomeArquivo: str) -> list :
     uma lista de dicionários contendo os dados do arquivo CSV que se deseja carregar
     '''
     try:
+        nomeArquivo = "dados/" + nomeArquivo
         arq = open(nomeArquivo, "r")
         listaClientes = csv.DictReader(arq, delimiter=';')
         listaClientes = list(listaClientes)
