@@ -41,17 +41,17 @@ def gravarDados( nomeArquivo: str, campos : list, lista : list ) -> bool :
     false caso ocorra algum erro durante a gravação
     '''
     try:
+        nomeArquivo = "dados/" + nomeArquivo
         # abrindo o arquivo a ser gravado para escrita(sobreescreve o existente)
         arq = open(nomeArquivo, "w", newline='')
         meuCSV = csv.DictWriter(arq,fieldnames=campos, delimiter=';')
         meuCSV.writeheader()        
         for r in lista:            
             meuCSV.writerow(r)
-            print(r)
             arq.flush()
         arq.close()
         return True       
     except FileNotFoundError:
-        print("erro na abertura do arquivo ", nomeArquivo)
+        print("Erro na abertura do arquivo ", nomeArquivo)
         return False
 
