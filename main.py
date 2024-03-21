@@ -62,7 +62,17 @@ def main():
                         case 4:
                             print("Chamar disponibilizar carros para venda")
                         case 5:
-                            print("Chamar carros por categoria")
+                            listaCarros = mcar.carregar()
+                            escolha = -1
+                            while escolha < 0 or escolha > 4:
+                                apresentacao.limpaTela()
+                                print("Escollha a categoria do carro")
+                                print("1 - Econômico\n2 - Intermediário\n3 - Conforto\n4 - Pickup\n0 - Sair")
+                                escolha = int(input("Opção -> "))
+                            if escolha == 0:
+                                break
+                            apresentacao.limpaTela()
+                            mcar.listarCarrosPorCategoria(listaCarros, escolha)
                     if opcaoCarros != 9:
                         apresentacao.EsperaEnter()
             case 9:

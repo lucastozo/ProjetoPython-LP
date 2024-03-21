@@ -75,3 +75,29 @@ def excluir(listaCarros : list, id : int ) -> bool:
     if encontrou:
         mcsv.gravarDados("Carros.csv", camposCarro, listaCarros)
     return encontrou
+
+def listarCarrosPorCategoria(listaCarros : list, categoria : int) -> list:
+    '''
+    Lista os carros DISPONÍVEIS PARA LOCAÇÃO de uma determinada categoria
+
+    Parâmetros
+    ----------
+    listaCarros: Lista atual dos carros
+    categoria: Escolha da categoria do carro
+
+    Retorno
+    -------
+    Retorna uma lista de dicionários contendo os carros da categoria disponíveis para locação
+    '''
+    categorias = ['Econômico', 'Intermediário', 'Conforto', 'Pickup']
+    categoriaStr = categorias[categoria-1]
+    carrosCategoria = []
+    for carro in listaCarros:
+        if carro['Categoria'] == categoriaStr and (carro['Disponivel'] == 'Sim' or carro['Disponivel'] == 'sim' or carro['Disponivel'] == 'S' or carro['Disponivel'] == 's'):
+            carrosCategoria.append(carro)
+    if carrosCategoria == []:
+        print("Nenhum carro disponível nessa categoria")
+    else:
+        for carro in carrosCategoria:
+            apresentacao.ExibirCarro(carro)
+    return carrosCategoria
