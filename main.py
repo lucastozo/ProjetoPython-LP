@@ -37,9 +37,11 @@ def main():
                 opcaoCarros = 0
                 while opcaoCarros != 9:
                     opcaoCarros = apresentacao.MenuCarros()
+                    apresentacao.limpaTela()
                     match opcaoCarros:
                         case 1:
-                            if mcar.cadastrar(mcar.carregar()):
+                            listaCarros = mcar.carregar()
+                            if mcar.cadastrar(listaCarros):
                                 print("Carro cadastrado com sucesso")
                             else:
                                 print("Erro ao cadastrar carro")
