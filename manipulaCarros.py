@@ -76,6 +76,32 @@ def excluir(listaCarros : list, id : int ) -> bool:
         mcsv.gravarDados("Carros.csv", camposCarro, listaCarros)
     return encontrou
 
+def disponibilizarCarrosParaVenda(listaCarros : list) -> bool:
+    '''
+    Disponibiliza carros para venda
+
+    Parâmetros
+    ----------
+    listaCarros: Lista atual dos carros
+
+    Retorno
+    -------
+    Retorna True se os carros foram disponibilizados para venda e False caso não haja carros disponíveis
+    '''
+    carrosVenda = []
+    idCarrosExcluir = []
+    for carro in listaCarros:
+        if carro['Disponivel'] == 'Sim' and (int(carro['AnoFabricacao']) <= 2018 or int(carro['Km']) >= 60000):
+            carrosVenda.append(carro)
+            idCarrosExcluir.append(int(carro['Identificacao']))
+    if carrosVenda == []:
+        return False
+    camposCarro = list(listaCarros[0].keys())
+    mcsv.gravarDados("Vendas.csv", camposCarro, carrosVenda)
+    for id in idCarrosExcluir:
+        excluir(listaCarros, id)
+    return True
+
 def listarCarrosPorCategoria(listaCarros : list, categoria : int) -> list:
     '''
     Lista os carros DISPONÍVEIS PARA LOCAÇÃO de uma determinada categoria
