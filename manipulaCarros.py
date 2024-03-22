@@ -1,18 +1,43 @@
 import manipulaCSV as mcsv
 import apresentacao
 
-def carregar() -> list :
+def carregar(campos={}, mostrarApenasDisponiveis = False) -> list :
     '''
-    Carrega o arquivo de Carro.csv numa lista
-    
+    Retorna uma lista de dicionários contendo carros
+
+    Parâmetros
+    ----------
+    campos: dict, opcional
+        Dicionário contendo os campos a serem filtrados. Se vazio, retorna todos os carros
+    mostrarApenasDisponiveis: bool, opcional
+        Se True, retorna apenas carros disponíveis
+
     Retorno
     -------
-    Retorna uma lista vazia caso o arquivo não exista ou 
-    uma lista de dicionários contendo os dados dos clientes
+    Retorna uma lista vazia caso o arquivo não exista ou uma lista de dicionários contendo os dados dos carros
+
+    Exemplo
+    -------
+    carregar() -> Retorna todos os carros
+    carregar({'Categoria': 'Econômico', 'Cor': 'Preto'}, True) -> Retorna carros econômicos e pretos disponíveis
+    carregar({'AnoFabricacao': '2020'}, False) -> Retorna carros fabricados em 2020 disponíveis e indisponíveis
     '''
     lista = mcsv.carregarDados("Carros.csv")
-    return lista
-
+    if campos == {}:
+        return lista
+    
+    carrosFiltrados = []
+    for carro in lista:
+        if mostrarApenasDisponiveis and (carro['Disponivel'].lower() != 'sim' and carro['Disponivel'].lower() != 's'):
+            continue
+        igual = True
+        for campo, valor in campos.items():
+            if carro.get(campo) != valor:
+                igual = False
+                break
+        if igual:
+            carrosFiltrados.append(carro)
+    return carrosFiltrados
 
 def cadastrar( listaCarros : list) -> bool :
     '''

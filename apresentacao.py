@@ -128,24 +128,33 @@ def CadastrarCarro() -> dict:
         carro[campo] = input(f"{saidaCamposCarro[l.index(campo)]}: ")
     return carro
 
-def ExibirCarro(carro : dict, mostrarIndices = False):
+def ExibirCarro(carro : dict, campos=None, mostrarIndices = False):
     '''
     Procedimento que exibe as informações de um carro
 
     Parâmetros
     ----------
-    carro: dicionário com as informações do carro
-    mostrarIndices: booleano que indica se deve exibir os índices dos campos, útil para a função alterar
+    carro : dict
+        Dicionário com as informações do carro
+    campos : list, opcional
+        Lista com os campos a serem exibidos
+    mostrarIndices : bool, opcional
+        Exibir os índices dos campos
+
+    Exemplo
+    -------
+    ExibirCarro(carro, [Identificacao, Modelo, Cor, AnoFabricacao]) # Exibe apenas os campos Identificacao, Modelo, Cor e AnoFabricacao
+    ExibirCarro(carro, mostrarIndices=True) # Exibe todos os campos com os índices
     '''
     limpaTela()
     print("#"*30)
     print("Informações do carro")
     for indice, item in enumerate(carro.items(), start=1):
         chave, valor = item
-        if mostrarIndices:
-            print(f"{indice}. {saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
-        else:
-            print(f"{saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
+        if campos is None or chave in campos:
+            if mostrarIndices:
+                print(f"{indice}. {saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
+            else:
+                print(f"{saidaCamposCarro[list(carro.keys()).index(chave)]}: {valor}")
     print("#"*30)
-    if mostrarIndices:
-        print()
+    print()
