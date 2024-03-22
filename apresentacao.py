@@ -1,4 +1,5 @@
 from os import system, name
+import manipulaCarros as mcar
 
 # saidaCampos é uma lista para mostrar os campos de uma forma mais amigável
 saidaCamposCarro = ["Identificação", "Modelo", "Cor", "Ano de Fabricação", "Placa", "Câmbio", "Categoria", "Km", "Diária", "Seguro", "Disponível"]
@@ -125,7 +126,10 @@ def CadastrarCarro() -> dict:
     
     carro = {}
     for campo in l:
-        carro[campo] = input(f"{saidaCamposCarro[l.index(campo)]}: ")
+        if campo == "Identificacao":
+            carro[campo] = mcar.obterProximoId()
+        else:
+            carro[campo] = input(f"{saidaCamposCarro[l.index(campo)]}: ")
     return carro
 
 def ExibirCarro(carro : dict, campos=None, mostrarIndices = False):

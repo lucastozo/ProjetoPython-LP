@@ -40,33 +40,29 @@ def main():
                     apresentacao.limpaTela()
                     match opcaoCarros:
                         case 1:
-                            listaCarros = mcar.carregar()
-                            if mcar.cadastrar(listaCarros):
+                            carro = apresentacao.CadastrarCarro()
+                            if mcar.cadastrar(carro):
                                 print("Carro cadastrado com sucesso")
                             else:
                                 print("Erro ao cadastrar carro")
                         case 2:
-                            listaCarros = mcar.carregar()
                             id = int(input("Digite o ID do carro que deseja alterar: "))
-                            if mcar.alterar(listaCarros, id):
+                            if mcar.alterar(id):
                                 print("Carro alterado com sucesso")
                             else:
-                                print("Carro não encontrado")
+                                print("Carro não encontrado ou não foi alterado")
                         case 3:
-                            listaCarros = mcar.carregar()
                             id = int(input("Digite o ID do carro que deseja excluir: "))
-                            if mcar.excluir(listaCarros, id):
+                            if mcar.excluir(id):
                                 print("Carro excluido com sucesso")
                             else:
-                                print("Carro não encontrado")
+                                print("Carro não encontrado ou não foi excluido")
                         case 4:
-                            listaCarros = mcar.carregar()
-                            if mcar.disponibilizarCarrosParaVenda(listaCarros):
+                            if mcar.disponibilizarCarrosParaVenda():
                                 print("Operação realizada com sucesso")
                             else:
                                 print("Não há carros disponíveis para venda")
                         case 5:
-                            listaCarros = mcar.carregar()
                             escolha = -1
                             while escolha < 0 or escolha > 4:
                                 apresentacao.limpaTela()
@@ -74,7 +70,10 @@ def main():
                                 print("1. Econômico\n2. Intermediário\n3. Conforto\n4. Pickup")
                                 escolha = int(input("Opção -> "))
                             apresentacao.limpaTela()
-                            mcar.listarCarrosPorCategoria(listaCarros, escolha)
+
+                            categorias = ['Econômico', 'Intermediário', 'Conforto', 'Pickup']
+                            categoria = categorias[escolha-1]
+                            mcar.listarCarrosPorCategoria(categoria)
                     if opcaoCarros != 9:
                         apresentacao.EsperaEnter()
             case 9:
