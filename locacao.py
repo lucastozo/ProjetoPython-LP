@@ -14,18 +14,18 @@ def carregar_Locacao() ->list:
     
     Retorno
     -------
-    Retorna uma lista vazia caso o arquivo n„o exista ou 
-    uma lista de dicion·rios contendo os dados das locaÁıes
+    Retorna uma lista vazia caso o arquivo n√£o exista ou 
+    uma lista de dicion√°rios contendo os dados das loca√ß√µes
     '''
     lista = mcsv.carregarDados("Locacoes.csv")
     return lista
 
     def obterProximoId_Locacao() -> int:
         '''
-    ObtÈm o prÛximo ID para cadastrar uma locacao
+    Obt√©m o pr√≥ximo ID para cadastrar uma locacao
     Retorno
     -------
-    Retorna o ID disponÌvel para cadastro
+    Retorna o ID dispon√≠vel para cadastro
     '''
     listaLocacoes = carregar_Locacao()
     if listaLocacoes == []:
@@ -36,10 +36,10 @@ def cadastrar_locacao(locacao : dict) -> bool :
     '''
     Rotina para cadastrar uma locacao
 
-    Par‚metros
+    Par√¢metros
     ----------
     locacao: dict
-        Dicion·rio contendo os dados da locacao
+        Dicion√°rio contendo os dados da locacao
 
     Retorno
     -------
@@ -49,7 +49,7 @@ def cadastrar_locacao(locacao : dict) -> bool :
     camposLocacoes =  ["Identificacao","Identificacao_Carro","Cpf","Data_Inicial","Km_Inicial","Data_Final","Km_Final"]
     for l in listaLocacoes:
         if l['Identificacao'] == locacao['Identificacao']:
-            print("Uma locaÁ„o com essa identificaÁ„o j· existe")
+            print("Uma loca√ß√£o com essa identifica√ß√£o j√° existe")
             return False
     listaLocacoes.append(locacao)
     return mcsv.gravarDados('Locacoes.csv', camposLocacoes, listaLocacoes )
@@ -77,18 +77,18 @@ def NovaLocacao():
     while categoria not in categorias:
         apresentacao.limpaTela()
         print("#"*20)
-        print("1. EconÙmico\n2. Intermedi·rio\n3. Conforto\n4. Pickup")    
+        print("1. Econ√¥mico\n2. Intermedi√°rio\n3. Conforto\n4. Pickup")    
         print('#'*20)
-        categoria = int(input("OpÁ„o -> "))
+        categoria = int(input("Op√ß√£o -> "))
     cambios = [1,2]
     cambio = 0
     while cambio not in cambios:
         apresentacao.limpaTela()
         print("#"*20)
-        print("Qual o c‚mbio desejado?\n")
-        print("1. Manual\n2. Autom·tico")    
+        print("Qual o c√¢mbio desejado?\n")
+        print("1. Manual\n2. Autom√°tico")    
         print('#'*20)
-        cambio = int(input("OpÁ„o -> "))
+        cambio = int(input("Op√ß√£o -> "))
     seguros = [1,2]
     seguro = 0
     while seguro not in seguros:
@@ -96,36 +96,36 @@ def NovaLocacao():
         print("#"*20)
         print("1. Com seguro\n2. Sem seguro")    
         print('#'*20)
-        seguro = int(input("OpÁ„o -> "))
+        seguro = int(input("Op√ß√£o -> "))
     match categoria:
         case 1:
             match cambio:
                 case 1:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'EconÙmico', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Econ√¥mico', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'EconÙmico', 'Cambio': 'Autom·tico'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Econ√¥mico', 'Cambio': 'Autom√°tico'}, True)
         case 2:
             match cambio:
                 case 1:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermedi·rio', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermedi√°rio', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermedi·rio', 'Cambio': 'Autom·tico'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermedi√°rio', 'Cambio': 'Autom√°tico'}, True)
         case 3:
             match cambio:
                 case 1:
                     carros_disponiveis = mcar.carregar({'Categoria': 'Conforto', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'Conforto', 'Cambio': 'Autom·tico'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Conforto', 'Cambio': 'Autom√°tico'}, True)
         case 4:
             match cambio:
                 case 1:
                     carros_disponiveis = mcar.carregar({'Categoria': 'Pickup', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = mcar.carregar({'Categoria': 'Pickup', 'Cambio': 'Autom·tico'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Pickup', 'Cambio': 'Autom√°tico'}, True)
     apresentacao.limpaTela()
     print("#"*20)
     if len(carros_disponiveis) == 0:
-        print("Nenhum carro disponÌvel")
+        print("Nenhum carro dispon√≠vel")
         return False
     else:
         if seguro == 1:
@@ -134,8 +134,8 @@ def NovaLocacao():
             print(carros_disponiveis['Modelo','Cor', 'Diaria', 'Km', 'Placa'])
     apresentacao.EsperaEnter()
     apresentacao.limpaTela()
-    locacao['Identificacao_Carro'] = int(input("Qual a identificaÁ„o do carro escolhido?\n"))
-    entrada = input("Data da locaÁ„o (dia/mes/ano)? ")
+    locacao['Identificacao_Carro'] = int(input("Qual a identifica√ß√£o do carro escolhido?\n"))
+    entrada = input("Data da loca√ß√£o (dia/mes/ano)? ")
     horario_entrada = input("Horario entrada (hh:mm): ")
     entrada = entrada + " " + horario_entrada
     locacao['Data_Inicial'] = datetime.datetime.strptime(entrada, "%d/%m/%Y %H:%M")
@@ -148,8 +148,8 @@ def NovaLocacao():
                 locacao['Km_Inicial'] = carro['Km']
         if not(achou) :
             apresentacao.limpaTela()
-            print("Carro indisponÌvel")
-            Id_Carro = int(input("Digite novamente a identificaÁ„o do carro: "))
+            print("Carro indispon√≠vel")
+            Id_Carro = int(input("Digite novamente a identifica√ß√£o do carro: "))
     locacao['Data_Final'] = (0/0/0)
     locacao['Km_Final'] = 0
     locacao['Identificacao'] = locacao.obterProximoId_Locacao()
@@ -159,14 +159,14 @@ def NovaLocacao():
 def EncerrarLocacao():
     apresentacao.limpaTela()
     print("#"*20)
-    Identificacao = int(input("Qual a identificaÁ„o da locaÁ„o?"))
+    Identificacao = int(input("Qual a identifica√ß√£o da loca√ß√£o?"))
     print("#"*20)
     listaLocacoes = carregar_Locacao()
     camposLocacoes = list(listaLocacoes[0].keys())
     for locacoes in listaLocacoes:
         if int(locacoes['Identificacao']) == Identificacao :
             locacao = locacoes
-    saida = input("Entrega da locaÁ„o (dia/mes/ano)? ")
+    saida = input("Entrega da loca√ß√£o (dia/mes/ano)? ")
     horario_saida = input("Horario entrega (hh:mm): ")
     saida = saida + " " + horario_saida
     locacao['Data_Final'] = datetime.datetime.strptime(saida, "%d/%m/%Y %H:%M")

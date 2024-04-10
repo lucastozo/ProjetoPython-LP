@@ -2,6 +2,7 @@ import manipulaCSV as mcsv
 import manipulaClientes as mcli
 import manipulaCarros as mcar
 import apresentacao
+import locacao
 
 def main():
     while True:
