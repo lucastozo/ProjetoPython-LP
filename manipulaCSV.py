@@ -16,7 +16,7 @@ def carregarDados( nomeArquivo: str) -> list :
     '''
     try:
         nomeArquivo = "dados/" + nomeArquivo
-        arq = open(nomeArquivo, "r")
+        arq = open(nomeArquivo, "r", encoding='utf-8')
         listaClientes = csv.DictReader(arq, delimiter=';')
         listaClientes = list(listaClientes)
     except FileNotFoundError:
