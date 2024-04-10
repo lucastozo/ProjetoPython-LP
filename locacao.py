@@ -1,5 +1,5 @@
 import manipulaCSV as mcsv
-import manipulaCarros
+import manipulaCarros as mcar
 import datetime
 import apresentacao
 
@@ -45,7 +45,7 @@ def cadastrar_locacao(locacao : dict) -> bool :
     -------
     Retorna True se a locacao foi cadastrada com sucesso
     '''
-    listaLocacoes = carregarDados("Locacoes.csv")
+    listaLocacoes = mcsv.carregarDados("Locacoes.csv")
     camposLocacoes =  ["Identificacao","Identificacao_Carro","Cpf","Data_Inicial","Km_Inicial","Data_Final","Km_Final"]
     for l in listaLocacoes:
         if l['Identificacao'] == locacao['Identificacao']:
@@ -75,7 +75,7 @@ def NovaLocacao():
     categorias = [1,2,3,4]
     categoria = 0
     while categoria not in categorias:
-        limpaTela()
+        apresentacao.limpaTela()
         print("#"*20)
         print("1. Econômico\n2. Intermediário\n3. Conforto\n4. Pickup")    
         print('#'*20)
@@ -83,7 +83,7 @@ def NovaLocacao():
     cambios = [1,2]
     cambio = 0
     while cambio not in cambios:
-        limpaTela()
+        apresentacao.limpaTela()
         print("#"*20)
         print("Qual o câmbio desejado?\n")
         print("1. Manual\n2. Automático")    
@@ -92,7 +92,7 @@ def NovaLocacao():
     seguros = [1,2]
     seguro = 0
     while seguro not in seguros:
-        limpaTela()
+        apresentacao.limpaTela()
         print("#"*20)
         print("1. Com seguro\n2. Sem seguro")    
         print('#'*20)
@@ -101,28 +101,28 @@ def NovaLocacao():
         case 1:
             match cambio:
                 case 1:
-                    carros_disponiveis = carregar({'Categoria': 'Econômico', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Econômico', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = carregar({'Categoria': 'Econômico', 'Cambio': 'Automático'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Econômico', 'Cambio': 'Automático'}, True)
         case 2:
             match cambio:
                 case 1:
-                    carros_disponiveis = carregar({'Categoria': 'Intermediário', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermediário', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = carregar({'Categoria': 'Intermediário', 'Cambio': 'Automático'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Intermediário', 'Cambio': 'Automático'}, True)
         case 3:
             match cambio:
                 case 1:
-                    carros_disponiveis = carregar({'Categoria': 'Conforto', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Conforto', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = carregar({'Categoria': 'Conforto', 'Cambio': 'Automático'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Conforto', 'Cambio': 'Automático'}, True)
         case 4:
             match cambio:
                 case 1:
-                    carros_disponiveis = carregar({'Categoria': 'Pickup', 'Cambio': 'Manual'}, True)
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Pickup', 'Cambio': 'Manual'}, True)
                 case 2:
-                    carros_disponiveis = carregar({'Categoria': 'Pickup', 'Cambio': 'Automático'}, True)
-    limpaTela()
+                    carros_disponiveis = mcar.carregar({'Categoria': 'Pickup', 'Cambio': 'Automático'}, True)
+    apresentacao.limpaTela()
     print("#"*20)
     if len(carros_disponiveis) == 0:
         print("Nenhum carro disponível")
@@ -132,8 +132,8 @@ def NovaLocacao():
             print(carros_disponiveis['Modelo','Cor', 'Diaria', 'Seguro', 'Km', 'Placa'])
         else:
             print(carros_disponiveis['Modelo','Cor', 'Diaria', 'Km', 'Placa'])
-    EsperaEnter()
-    limpaTela()
+    apresentacao.EsperaEnter()
+    apresentacao.limpaTela()
     locacao['Identificacao_Carro'] = int(input("Qual a identificação do carro escolhido?\n"))
     entrada = input("Data da locação (dia/mes/ano)? ")
     horario_entrada = input("Horario entrada (hh:mm): ")
@@ -147,17 +147,17 @@ def NovaLocacao():
                 achou = True
                 locacao['Km_Inicial'] = carro['Km']
         if not(achou) :
-            limpaTela()
+            apresentacao.limpaTela()
             print("Carro indisponível")
             Id_Carro = int(input("Digite novamente a identificação do carro: "))
     locacao['Data_Final'] = (0/0/0)
     locacao['Km_Final'] = 0
-    locacao['Identificacao'] = obterProximoId_Locacao()
+    locacao['Identificacao'] = locacao.obterProximoId_Locacao()
     cadastrar_locacao(locacao)
     #alterarDisponivel()
 
 def EncerrarLocacao():
-    limpaTela()
+    apresentacao.limpaTela()
     print("#"*20)
     Identificacao = int(input("Qual a identificação da locação?"))
     print("#"*20)
@@ -172,7 +172,7 @@ def EncerrarLocacao():
     locacao['Data_Final'] = datetime.datetime.strptime(saida, "%d/%m/%Y %H:%M")
     locacao['Km_Final'] = input("Qual a quilometragem atual?")
     tempoDecorrido = diferenca_dias(locacao['Data_Inicial'], locacao['Data_Final'])
-    listaCarros = carregar()
+    listaCarros = mcar.carregar()
     camposCarro = list(listaCarros[0].keys())
     for carro in listaCarros:
         if int(carro['Identificacao']) == locacao['Identificacao_Carro'] :
