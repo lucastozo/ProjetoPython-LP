@@ -21,7 +21,7 @@ def carregar_Locacao() ->list:
     return lista
 
     def obterProximoId_Locacao() -> int:
-    '''
+        '''
     Obtém o próximo ID para cadastrar uma locacao
     Retorno
     -------
@@ -73,30 +73,30 @@ def NovaLocacao():
     locacao = {}
     locacao['Cpf'] = str(input("Digite o CPF do cliente:"))
     categorias = [1,2,3,4]
-        categoria = 0
-        while categoria not in categorias:
-            limpaTela()
-            print("#"*20)
-            print("1. Econômico\n2. Intermediário\n3. Conforto\n4. Pickup")    
-            print('#'*20)
-            categoria = int(input("Opção -> "))
+    categoria = 0
+    while categoria not in categorias:
+        limpaTela()
+        print("#"*20)
+        print("1. Econômico\n2. Intermediário\n3. Conforto\n4. Pickup")    
+        print('#'*20)
+        categoria = int(input("Opção -> "))
     cambios = [1,2]
-        cambio = 0
-        while cambio not in cambios:
-            limpaTela()
-            print("#"*20)
-            print("Qual o câmbio desejado?\n")
-            print("1. Manual\n2. Automático")    
-            print('#'*20)
-            cambio = int(input("Opção -> "))
+    cambio = 0
+    while cambio not in cambios:
+        limpaTela()
+        print("#"*20)
+        print("Qual o câmbio desejado?\n")
+        print("1. Manual\n2. Automático")    
+        print('#'*20)
+        cambio = int(input("Opção -> "))
     seguros = [1,2]
-        seguro = 0
-        while seguro not in seguros:
-            limpaTela()
-            print("#"*20)
-            print("1. Com seguro\n2. Sem seguro")    
-            print('#'*20)
-            seguro = int(input("Opção -> "))
+    seguro = 0
+    while seguro not in seguros:
+        limpaTela()
+        print("#"*20)
+        print("1. Com seguro\n2. Sem seguro")    
+        print('#'*20)
+        seguro = int(input("Opção -> "))
     match categoria:
         case 1:
             match cambio:
@@ -141,12 +141,12 @@ def NovaLocacao():
     locacao['Data_Inicial'] = datetime.datetime.strptime(entrada, "%d/%m/%Y %H:%M")
     camposCarro = list(carros_disponiveis[0].keys())
     achou = False
-    while !(achou):
+    while not(achou) :
         for carro in carros_disponiveis:
             if int(carro['Identificacao']) == Id_Carro :
                 achou = True
                 locacao['Km_Inicial'] = carro['Km']
-        if !(achou):
+        if not(achou) :
             limpaTela()
             print("Carro indisponível")
             Id_Carro = int(input("Digite novamente a identificação do carro: "))
@@ -182,5 +182,5 @@ def EncerrarLocacao():
         pagamento = diaria
     else:
         pagamento = (diaria/24)*tempoDecorrido
-    print("O total a ser pago é R$" pagamento)
+    print("O pagamento deve ser de R$", pagamento)
     #alterarDisponivel()
