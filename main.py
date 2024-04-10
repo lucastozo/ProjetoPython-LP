@@ -14,9 +14,9 @@ def main():
                     opcaoLocacoes = apresentacao.MenuLocacoes()
                     match opcaoLocacoes:
                         case 1:
-                            print("Chamar Nova locação")
+                            locacao.NovaLocacao()
                         case 2:
-                            print("Chamar Finalizar locação")
+                            locacao.EncerrarLocacao()
                         case 3:
                             print("Relatório de carros locados")
                     apresentacao.EsperaEnter()

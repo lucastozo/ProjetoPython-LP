@@ -3,10 +3,16 @@ import manipulaCarros as mcar
 import datetime
 import apresentacao
 
-def diferenca_dias(d1, d2):
-    d1 = datetime.strptime(d1, "%d/%m/%Y %H:%M:%S")
-    d2 = datetime.strptime(d2, "%d/%m/%Y %H:%M:%S")
-    return abs((d2 - d1).days * 24)
+def diferenca_dias(data1, data2):
+    tempo_decorrido = data2 - data1
+    print(tempo_decorrido)
+    if (tempo_decorrido.days > 0 ):
+        [dummy, horas] =  str(tempo_decorrido).split(',')
+        [horas, minutos, segundos] = horas.split(":")    
+    else:
+        [horas, minutos, segundos] = str(tempo_decorrido).split(":")
+    dias = tempo_decorrido.days
+    print(f"{dias} dias e {horas} horas utilizadas" )
 
 def carregar_Locacao() ->list: 
     '''
@@ -20,17 +26,17 @@ def carregar_Locacao() ->list:
     lista = mcsv.carregarDados("Locacoes.csv")
     return lista
 
-    def obterProximoId_Locacao() -> int:
+def obterProximoId_Locacao() -> int:
         '''
     Obtém o próximo ID para cadastrar uma locacao
     Retorno
     -------
     Retorna o ID disponível para cadastro
     '''
-    listaLocacoes = carregar_Locacao()
-    if listaLocacoes == []:
-        return 1
-    return int(listaLocacoes[-1]['Identificacao']) + 1
+        listaLocacoes = carregar_Locacao()
+        if listaLocacoes == []:
+            return 1
+        return int(listaLocacoes[-1]['Identificacao']) + 1
 
 def cadastrar_locacao(locacao : dict) -> bool :
     '''
@@ -129,9 +135,13 @@ def NovaLocacao():
         return False
     else:
         if seguro == 1:
-            print(carros_disponiveis['Modelo','Cor', 'Diaria', 'Seguro', 'Km', 'Placa'])
+            carrosExibidos = ['Modelo','Cor', 'Diaria', 'Seguro', 'Km', 'Placa']
+            for carro in carros_disponiveis:
+                apresentacao.ExibirCarro(carro, carrosExibidos )
         else:
-            print(carros_disponiveis['Modelo','Cor', 'Diaria', 'Km', 'Placa'])
+            carrosExibidos = ['Modelo','Cor', 'Diaria', 'Km', 'Placa']
+            for carro in carros_disponiveis:
+                apresentacao.ExibirCarro(carro, carrosExibidos )
     apresentacao.EsperaEnter()
     apresentacao.limpaTela()
     locacao['Identificacao_Carro'] = int(input("Qual a identificação do carro escolhido?\n"))
@@ -143,18 +153,17 @@ def NovaLocacao():
     achou = False
     while not(achou) :
         for carro in carros_disponiveis:
-            if int(carro['Identificacao']) == Id_Carro :
+            if int(carro['Identificacao']) == locacao['Identificacao_Carro'] :
                 achou = True
                 locacao['Km_Inicial'] = carro['Km']
         if not(achou) :
             apresentacao.limpaTela()
             print("Carro indisponível")
             Id_Carro = int(input("Digite novamente a identificação do carro: "))
-    locacao['Data_Final'] = (0/0/0)
+    locacao['Data_Final'] = datetime.datetime(1, 1, 1)
     locacao['Km_Final'] = 0
-    locacao['Identificacao'] = locacao.obterProximoId_Locacao()
+    locacao['Identificacao'] = obterProximoId_Locacao()
     cadastrar_locacao(locacao)
-    #alterarDisponivel()
 
 def EncerrarLocacao():
     apresentacao.limpaTela()
@@ -183,4 +192,3 @@ def EncerrarLocacao():
     else:
         pagamento = (diaria/24)*tempoDecorrido
     print("O pagamento deve ser de R$", pagamento)
-    #alterarDisponivel()
