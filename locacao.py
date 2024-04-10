@@ -3,6 +3,7 @@ import manipulaCarros as mcar
 import datetime
 import apresentacao
 
+'''
 def diferenca_dias(data1, data2):
     tempo_decorrido = data2 - data1
     print(tempo_decorrido)
@@ -13,6 +14,7 @@ def diferenca_dias(data1, data2):
         [horas, minutos, segundos] = str(tempo_decorrido).split(":")
     dias = tempo_decorrido.days
     print(f"{dias} dias e {horas} horas utilizadas" )
+'''    
 
 def carregar_Locacao() ->list: 
     '''
@@ -145,10 +147,10 @@ def NovaLocacao():
     apresentacao.EsperaEnter()
     apresentacao.limpaTela()
     locacao['Identificacao_Carro'] = int(input("Qual a identificação do carro escolhido?\n"))
-    entrada = input("Data da locação (dia/mes/ano)? ")
-    horario_entrada = input("Horario entrada (hh:mm): ")
-    entrada = entrada + " " + horario_entrada
-    locacao['Data_Inicial'] = datetime.datetime.strptime(entrada, "%d/%m/%Y %H:%M")
+    #entrada = input("Data da locação (dia/mes/ano)? ")
+    #horario_entrada = input("Horario entrada (hh:mm): ")
+    #entrada = entrada + " " + horario_entrada
+    #locacao['Data_Inicial'] = datetime.datetime.strptime(entrada, "%d/%m/%Y %H:%M")
     camposCarro = list(carros_disponiveis[0].keys())
     achou = False
     while not(achou) :
@@ -160,7 +162,7 @@ def NovaLocacao():
             apresentacao.limpaTela()
             print("Carro indisponível")
             Id_Carro = int(input("Digite novamente a identificação do carro: "))
-    locacao['Data_Final'] = datetime.datetime(1, 1, 1)
+    #locacao['Data_Final'] = datetime.datetime(1, 1, 1)
     locacao['Km_Final'] = 0
     locacao['Identificacao'] = obterProximoId_Locacao()
     cadastrar_locacao(locacao)
@@ -175,10 +177,10 @@ def EncerrarLocacao():
     for locacoes in listaLocacoes:
         if int(locacoes['Identificacao']) == Identificacao :
             locacao = locacoes
-    saida = input("Entrega da locação (dia/mes/ano)? ")
-    horario_saida = input("Horario entrega (hh:mm): ")
-    saida = saida + " " + horario_saida
-    locacao['Data_Final'] = datetime.datetime.strptime(saida, "%d/%m/%Y %H:%M")
+    #saida = input("Entrega da locação (dia/mes/ano)? ")
+    #horario_saida = input("Horario entrega (hh:mm): ")
+    #saida = saida + " " + horario_saida
+    #locacao['Data_Final'] = datetime.datetime.strptime(saida, "%d/%m/%Y %H:%M")
     locacao['Km_Final'] = input("Qual a quilometragem atual?")
     tempoDecorrido = diferenca_dias(locacao['Data_Inicial'], locacao['Data_Final'])
     listaCarros = mcar.carregar()
