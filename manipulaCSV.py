@@ -43,7 +43,7 @@ def gravarDados( nomeArquivo: str, campos : list, lista : list ) -> bool :
     try:
         nomeArquivo = "dados/" + nomeArquivo
         # abrindo o arquivo a ser gravado para escrita(sobreescreve o existente)
-        arq = open(nomeArquivo, "w", newline='')
+        arq = open(nomeArquivo, "w", newline='', encoding='utf-8')
         meuCSV = csv.DictWriter(arq,fieldnames=campos, delimiter=';')
         meuCSV.writeheader()        
         for r in lista:            
