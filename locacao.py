@@ -187,6 +187,7 @@ def EncerrarLocacao():
     dias = diferenca_dias(data_inicial, locacao['Data_Final'], horas)
     listaCarros = mcar.carregar()
     camposCarro = list(listaCarros[0].keys())
+    diaria = 0
     for carro in listaCarros:
         if int(carro['Identificacao']) == locacao['Identificacao_Carro'] :
             diaria = carro['Diaria']
