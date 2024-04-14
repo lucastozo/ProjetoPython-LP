@@ -175,13 +175,14 @@ def EncerrarLocacao():
     listaLocacoes = carregar_Locacao()
     camposLocacoes = list(listaLocacoes[0].keys())
     for locacoes in listaLocacoes:
-        if int(locacoes['Identificacao']) == Identificacao :
+        if int(locacoes['Identificacao']) == int(Identificacao) :
             locacao = locacoes
     saida = input("Entrega da locação (dia/mes/ano)? ")
     horario_saida = input("Horario entrega (hh:mm): ")
     saida = saida + " " + horario_saida
     locacao['Data_Final'] = datetime.datetime.strptime(saida, "%d/%m/%Y %H:%M")
     locacao['Km_Final'] = input("Qual a quilometragem atual?")
+    mcsv.gravarDados("Locacoes.csv", camposLocacoes, listaLocacoes)
     data_inicial = datetime.datetime.strptime(locacao['Data_Inicial'], "%Y-%m-%d %H:%M:%S")
     horas = 0
     dias = diferenca_dias(data_inicial, locacao['Data_Final'], horas)
@@ -189,9 +190,10 @@ def EncerrarLocacao():
     camposCarro = list(listaCarros[0].keys())
     diaria = 0
     for carro in listaCarros:
-        if int(carro['Identificacao']) == locacao['Identificacao_Carro'] :
+        if int(carro['Identificacao']) == int(locacao['Identificacao_Carro']) :
             diaria = carro['Diaria']
             carro['Km'] = locacao['Km_Final']
+            mcsv.gravarDados("Carros.csv", camposCarro, listaCarros)   
     if dias <=0:
         pagamento = diaria
     else:
