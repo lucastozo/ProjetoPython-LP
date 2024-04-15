@@ -247,6 +247,7 @@ def RelatórioLocação() -> bool:
             else:
                 pagamento = ValorTotal*dias + (ValorTotal*horas/24)
             RecebidoTotal = RecebidoTotal + pagamento
+            print("#"*20)
             print("Cpf: ", cpf)
             print("Nome do cliente: ", Nome)
             print("Início da locação: ", inicio)
