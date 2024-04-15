@@ -3,17 +3,25 @@ import manipulaCarros as mcar
 import datetime
 import apresentacao
 
-
-def diferenca_dias(data1, data2, horas):
+def diferenca_dias(data1, data2):
     tempo_decorrido = data2 - data1
     if (tempo_decorrido.days > 0 ):
         [dummy, horas] =  str(tempo_decorrido).split(',')
         [horas, minutos, segundos] = horas.split(":")    
     else:
         [horas, minutos, segundos] = str(tempo_decorrido).split(":")
-    dias = tempo_decorrido.days
-    horas = (tempo_decorrido/datetime.timedelta(hours=1))// 1
+    dias = int(tempo_decorrido.days)
     return dias
+
+def diferenca_horas(data1, data2):
+    tempo_decorrido = data2 - data1
+    if (tempo_decorrido.days > 0 ):
+        [dummy, horas] =  str(tempo_decorrido).split(',')
+        [horas, minutos, segundos] = horas.split(":")    
+    else:
+        [horas, minutos, segundos] = str(tempo_decorrido).split(":")   
+    horas = int((tempo_decorrido/datetime.timedelta(hours=1))%24)
+    return horas
   
 
 def carregar_Locacao() ->list: 
@@ -184,14 +192,14 @@ def EncerrarLocacao():
     locacao['Km_Final'] = input("Qual a quilometragem atual?")
     mcsv.gravarDados("Locacoes.csv", camposLocacoes, listaLocacoes)
     data_inicial = datetime.datetime.strptime(locacao['Data_Inicial'], "%Y-%m-%d %H:%M:%S")
-    horas = 0
-    dias = diferenca_dias(data_inicial, locacao['Data_Final'], horas)
+    horas = diferenca_horas(data_inicial, locacao['Data_Final'])
+    dias = diferenca_dias(data_inicial, locacao['Data_Final'])
     listaCarros = mcar.carregar()
     camposCarro = list(listaCarros[0].keys())
     diaria = 0
     for carro in listaCarros:
         if int(carro['Identificacao']) == int(locacao['Identificacao_Carro']) :
-            diaria = carro['Diaria']
+            diaria = float(carro['Diaria'])
             carro['Km'] = locacao['Km_Final']
             mcsv.gravarDados("Carros.csv", camposCarro, listaCarros)   
     if dias <=0:
