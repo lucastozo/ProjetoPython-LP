@@ -18,7 +18,7 @@ def main():
                         case 2:
                             locacao.EncerrarLocacao()
                         case 3:
-                            print("Relatório de carros locados")
+                            locacao.RelatórioLocação()
                 if opcaoLocacoes != 9 :
                     apresentacao.EsperaEnter()        
             case 2:
