@@ -3,7 +3,6 @@ import manipulaCarros as mcar
 
 # saidaCampos é uma lista para mostrar os campos de uma forma mais amigável
 saidaCamposCarro = ["Identificação", "Modelo", "Cor", "Ano de Fabricação", "Placa", "Câmbio", "Categoria", "Km", "Diária", "Seguro", "Disponível"]
-
 #################################################################
 
 def EsperaEnter():
@@ -77,6 +76,25 @@ def MenuClientes() -> str:
         opcao = int(input("Opção -> "))
     return opcao
 
+def MenuAtualizarClientes() -> str:
+    '''
+    Menu de atualização dos clientes
+
+    Retorno
+    -------
+    Retorna escolha do usuário
+    '''
+    opcoes = [1,2,3,4,5,6,7,9]
+    opcao = 0
+    while opcao not in opcoes:
+        limpaTela()
+        print("#"*20)
+        print("Escolha qual informação deseja atualizar")
+        print("1. CPF\n2. Nome\n3. Data de Nascimento\n4. Idade\n5. Endereço\n6. Cidade\n7. Estado\n9. Sair")
+        print("#"*20)
+        opcao = int(input("Opção -> "))
+    return opcao
+
 def MenuCarros() -> str:
     '''
     Menu de carros
@@ -93,24 +111,7 @@ def MenuCarros() -> str:
         print("1. Cadastrar carro\n2. Atualizar informações\n3. Excluir carro\n4. Disponibilizar carros para venda\n5. Carros por categoria\n9. Sair")
         print("#"*20)
         opcao = int(input("Opção -> "))
-    return opcao
-
-def CadastrarCliente() -> dict :
-    '''
-    Procedimento que mostra os campos para cadastramento de um cliente
-    
-    Retorno
-    -------
-    Retorna um dicionário com as informações de um cliente    
-    '''
-    print("#"*30)
-    print("Cadastramento de um novo cliente ")
-    l = ["CPF","Nome","Nascimento","Idade","Endereço","Cidade","Estado"]
-    cliente = {}
-    for campo in l:
-        cliente[campo] = input(f"{campo}:")
-        print("#"*30)
-    return cliente 
+    return opcao 
 
 def CadastrarCarro() -> dict:
     '''

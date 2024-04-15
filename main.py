@@ -19,21 +19,33 @@ def main():
                             locacao.EncerrarLocacao()
                         case 3:
                             print("Relatório de carros locados")
-                    apresentacao.EsperaEnter()
+                if opcaoLocacoes != 9 :
+                    apresentacao.EsperaEnter()        
             case 2:
                 opcaoClientes = 0
                 while opcaoClientes != 9:
                     opcaoClientes = apresentacao.MenuClientes()
                     match opcaoClientes:
                         case 1:
-                            print("Chamar Cadastrar cliente")
+                            if mcli.cadastrar() :
+                                print("Cliente cadastrado com sucesso")
+                            else :
+                                print("Falha no cadastramento do cliente")
                         case 2:
-                            print("Chamar Alterar cliente")
+                            if mcli.atualizar() :
+                                print("Cliente atualizado com sucesso")
+                            else :
+                                print("CPF não encontrado ou erro na atualização do cliente")
                         case 3:
-                            print("Chamar Excluir cliente")
+                            if mcli.excluir() :
+                                print("Cliente excluído com sucesso")
+                            else :
+                                print("CPF não encontrado ou erro na exclusão do cliente")
                         case 4:
-                            print("Chamar Localizar locações")
-                    apresentacao.EsperaEnter()
+                            if not mcli.locacoes(input("Digite o CPF do cliente que deseja listar as locações\n")) :
+                               print("CPF não encontrado ou erro na procura das locações")
+                    if opcaoClientes != 9 :
+                        apresentacao.EsperaEnter()           
             case 3:
                 opcaoCarros = 0
                 while opcaoCarros != 9:
