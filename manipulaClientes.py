@@ -29,13 +29,11 @@ def cadastrar() -> bool :
     -------
     Retorna True se o cliente foi cadastrado com sucesso
     '''
-    print("#"*30)
     print("Cadastramento de um novo cliente ")
     camposCliente = ["CPF","Nome","Nascimento","Idade","Endereco","Cidade","Estado"]
     cliente = {}
     for campo in camposCliente:
         cliente[campo] = input(f"{campo}:")
-        print("#"*30)
     listaClientes = carregar()
     listaClientes.append(cliente)
     return mcsv.gravarDados('Clientes.csv', camposCliente, listaClientes )

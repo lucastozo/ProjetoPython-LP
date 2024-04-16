@@ -210,7 +210,7 @@ def EncerrarLocacao():
         pagamento = diaria*dias + (diaria*horas/24)
     print("O pagamento deve ser de R$", pagamento)
     
-def RelatórioLocação() -> bool:
+def RelatorioLocacao() -> bool:
     apresentacao.limpaTela()
     print("#"*20)
     atual = input("Data atual (dia/mes/ano)? ")
@@ -255,9 +255,5 @@ def RelatórioLocação() -> bool:
             print("Categoria do carro: ", Categoria)
             print("Placa do carro: ", Placa)
             print("A receber da locação: ", pagamento)
-    print("Total a receber de todas as locações: ", RecebidoTotal)        
-            
-                    
-            
-            
-            
+    print("Total a receber de todas as locações: ", RecebidoTotal)
+    apresentacao.EsperaEnter()
