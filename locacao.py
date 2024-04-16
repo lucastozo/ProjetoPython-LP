@@ -1,7 +1,9 @@
+from pydoc import cli
 import manipulaCSV as mcsv
 import manipulaCarros as mcar
 import datetime
 import apresentacao
+import manipulaClientes as mcli
 
 def diferenca_dias(data1, data2):
     tempo_decorrido = data2 - data1
@@ -207,3 +209,51 @@ def EncerrarLocacao():
     else:
         pagamento = diaria*dias + (diaria*horas/24)
     print("O pagamento deve ser de R$", pagamento)
+    
+def RelatorioLocacao() -> bool:
+    apresentacao.limpaTela()
+    print("#"*20)
+    atual = input("Data atual (dia/mes/ano)? ")
+    horario_atual = input("Horario atual (hh:mm): ")
+    atual = atual + " " + horario_atual
+    dataAtual = datetime.datetime.strptime(atual, "%d/%m/%Y %H:%M")
+    listaLocacoes = carregar_Locacao()
+    camposLocacoes = list(listaLocacoes[0].keys())
+    RecebidoTotal = 0
+    for locacoes in listaLocacoes:
+        if int(locacoes['Km_Final']) == 0 :
+            ide = locacoes['Identificacao_Carro']
+            cpf = locacoes['Cpf']
+            listaClientes = mcli.carregar()
+            camposClientes = list(listaClientes[0].keys())
+            for cliente in listaClientes:
+                if cliente['CPF'] == cpf :
+                    Nome = cliente['Nome']
+            inicio = locacoes['Data_Inicial']
+            listaCarros = mcar.carregar()
+            camposCarro = list(listaCarros[0].keys())
+            ValorTotal = 0
+            for carro in listaCarros:
+                if int(carro['Identificacao']) == int(ide) :
+                    Modelo = carro['Modelo']
+                    Categoria = carro['Categoria']
+                    Placa = carro['Placa']
+                    ValorTotal = float(carro['Diaria'])
+            data_inicial = datetime.datetime.strptime(locacoes['Data_Inicial'], "%Y-%m-%d %H:%M:%S")
+            horas = diferenca_horas(data_inicial, dataAtual)
+            dias = diferenca_dias(data_inicial, dataAtual)
+            if dias <=0:
+                pagamento = ValorTotal
+            else:
+                pagamento = ValorTotal*dias + (ValorTotal*horas/24)
+            RecebidoTotal = RecebidoTotal + pagamento
+            print("#"*20)
+            print("Cpf: ", cpf)
+            print("Nome do cliente: ", Nome)
+            print("Início da locação: ", inicio)
+            print("Modelo do carro: ", Modelo)
+            print("Categoria do carro: ", Categoria)
+            print("Placa do carro: ", Placa)
+            print("A receber da locação: ", pagamento)
+    print("Total a receber de todas as locações: ", RecebidoTotal)
+    apresentacao.EsperaEnter()

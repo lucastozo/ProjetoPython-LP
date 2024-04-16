@@ -12,19 +12,21 @@ def main():
                 opcaoLocacoes = 0
                 while opcaoLocacoes != 9:
                     opcaoLocacoes = apresentacao.MenuLocacoes()
+                    apresentacao.limpaTela()
                     match opcaoLocacoes:
                         case 1:
                             locacao.NovaLocacao()
                         case 2:
                             locacao.EncerrarLocacao()
                         case 3:
-                            print("Relatório de carros locados")
+                            locacao.RelatorioLocacao()
                 if opcaoLocacoes != 9 :
                     apresentacao.EsperaEnter()        
             case 2:
                 opcaoClientes = 0
                 while opcaoClientes != 9:
                     opcaoClientes = apresentacao.MenuClientes()
+                    apresentacao.limpaTela()
                     match opcaoClientes:
                         case 1:
                             if mcli.cadastrar() :
