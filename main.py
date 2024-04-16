@@ -37,7 +37,8 @@ def main():
                             else :
                                 print("CPF não encontrado ou erro na atualização do cliente")
                         case 3:
-                            if mcli.excluir() :
+                            cpf = input("Digite o CPF do cliente a ser excluido\n")
+                            if mcli.excluir(cpf) :
                                 print("Cliente excluído com sucesso")
                             else :
                                 print("CPF não encontrado ou erro na exclusão do cliente")

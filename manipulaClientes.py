@@ -89,10 +89,10 @@ def excluir(cpf : str ) -> bool :
     cliente_encontrado = False
     listaClientes = carregar()
     camposCliente = list(listaClientes[0].keys())
-    for cliente in enumerate(listaClientes):
+    for i, cliente in enumerate(listaClientes):
         if cliente['CPF'] ==  cpf :
             cliente_encontrado = True
-            listaClientes.pop(cliente)
+            listaClientes.pop(i)
     if cliente_encontrado :
         return mcsv.gravarDados("Clientes.csv", camposCliente, listaClientes)
     else :
