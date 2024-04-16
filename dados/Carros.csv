@@ -1,2 +1,6 @@
 Identificacao;Modelo;Cor;AnoFabricacao;Placa;Cambio;Categoria;Km;Diaria;Seguro;Disponivel
 1;Polo;Preto;2024;AAA-9A99;Manual;Econômico;100;120.00;12;Sim
+2;Ferrari 488 Pista;Vermelho;2020;XYZ-1234;Automático;Esportivo;15000;7000;500;True
+3;Lamborghini Huracan;Verde;2019;ABC-5678;Automático;Esportivo;12000;6500;600;False
+4;Porsche 911 GT3;Azul;2021;DEF-9012;Manual;Esportivo;8000;6000;550;True
+5;McLaren 720S;Laranja;2022;GHI-3456;Automático;Esportivo;5000;7500;700;True
